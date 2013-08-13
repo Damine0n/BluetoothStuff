@@ -55,7 +55,7 @@
             this.tbText.Name = "tbText";
             this.tbText.Size = new System.Drawing.Size(579, 20);
             this.tbText.TabIndex = 1;
-            this.tbText.Text = "$12013039054002E2,CR";
+            this.tbText.Text = "$0800EC,CR";
             this.tbText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbText_KeyPress);
             // 
             // listBox1

@@ -29,6 +29,7 @@ namespace BTooth_tutorial
         BluetoothDeviceInfo deviceInfo;
         BluetoothDeviceInfo[] devices;
         BluetoothClient client = new BluetoothClient();
+        Stream stream,mStream;
         string myPin = "1234";
         Guid mUUID = new Guid("{00001101-0000-1000-8000-00805f9b34fb}");
         bool serverStarted = false;
@@ -98,7 +99,7 @@ namespace BTooth_tutorial
             BluetoothClient conn = blueListener.AcceptBluetoothClient();
             updateUI("Client has connected");
 
-            Stream mStream = conn.GetStream();
+            mStream = conn.GetStream();
             while(true)
             {
                 try
@@ -106,7 +107,7 @@ namespace BTooth_tutorial
                     //handle server connection
                     byte[] received = new byte[1024];
                     mStream.Read(received, 0, received.Length);
-                    updateUI("Received " + Encoding.ASCII.GetString(received)+System.Environment.NewLine);
+                    updateUI("Received " + Encoding.ASCII.GetString(received)+"\n ");
                     byte[] sent = Encoding.ASCII.GetBytes("Hello World");
                     mStream.Write(sent, 0, sent.Length);
                 } catch(Exception ex){
@@ -165,10 +166,8 @@ namespace BTooth_tutorial
                 client = (BluetoothClient)result.AsyncState;
                 client.EndConnect(result);
 
-                Stream stream = client.GetStream();
-                stream.ReadTimeout = 1000;
+                stream = client.GetStream();
                 updateUI("CONNECTED!!!");
-                //bGo.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -190,24 +189,48 @@ namespace BTooth_tutorial
 
         private void tbText_KeyPress(object sender, KeyPressEventArgs e)
         {
+            Stream xStream;
             if (e.KeyChar == 13)
             {
                 ready=true;
                 tbText.Clear();
+ 
                 
-                Stream mStream =client.GetStream();
-                mStream.ReadTimeout = 4000;
+                if (mStream == null)
+                {
+                    xStream = stream;
+                }
+                else
+                {
+                    xStream = mStream;
+                }
+                xStream.ReadTimeout = 500;
                 try
                 {
-                    while (true)
-                    {                    
+                    //while (true)
+                    //{                    
                         //handle server connection
                         message = Encoding.ASCII.GetBytes(tbText.Text);
-                        mStream.Write(message, 0, message.Length);
+                        xStream.Write(message, 0, message.Length);
                         byte[] received = new byte[1024];
-                        mStream.Read(received, 0, received.Length);
-                        updateUI("Received " + Encoding.ASCII.GetString(received));
-                    }
+                        int bytesToRead = received.Length; 
+                        int i = 0;
+
+                        while (bytesToRead > 0)
+                        {
+                            // Read may return anything from 0 to received.length.
+                            int n = xStream.Read(received, i, bytesToRead);
+
+                            // The end of the file is reached. 
+                            if (n == 0)
+                                break;
+
+                            bytesToRead -= n;
+                            i++;
+                        }
+                        xStream.Close();
+                        updateUI("Received: " + Encoding.ASCII.GetString(received));
+                    //}
                 }
                 catch (Exception ex)
                 {

@@ -45,7 +45,7 @@
             // btnSend
             // 
             this.btnSend.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnSend.Location = new System.Drawing.Point(174, 202);
+            this.btnSend.Location = new System.Drawing.Point(173, 202);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(75, 23);
             this.btnSend.TabIndex = 0;
@@ -56,7 +56,7 @@
             // btnINIT
             // 
             this.btnINIT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnINIT.Location = new System.Drawing.Point(93, 202);
+            this.btnINIT.Location = new System.Drawing.Point(92, 202);
             this.btnINIT.Name = "btnINIT";
             this.btnINIT.Size = new System.Drawing.Size(75, 23);
             this.btnINIT.TabIndex = 1;
@@ -77,14 +77,14 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(218, 11);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(181, 160);
+            this.listBox1.Size = new System.Drawing.Size(195, 160);
             this.listBox1.TabIndex = 5;
             this.listBox1.DoubleClick += new System.EventHandler(this.listBox1_DoubleClick);
             // 
             // btnSearch
             // 
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSearch.Location = new System.Drawing.Point(12, 202);
+            this.btnSearch.Location = new System.Drawing.Point(11, 202);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 6;
@@ -96,7 +96,7 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(11, 176);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(388, 20);
+            this.textBox1.Size = new System.Drawing.Size(402, 20);
             this.textBox1.TabIndex = 7;
             this.textBox1.Text = "$0800EC,CR";
             // 

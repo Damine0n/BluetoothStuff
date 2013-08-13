@@ -53,9 +53,9 @@ namespace genericSerial
             listBox1.Items.Clear();
             // Get a list of serial port names.
             string[] ports = SerialPort.GetPortNames();
-
+            
             richTextBox1.Text += "The following serial ports were found:";
-
+            
             // Display each port name to the console. 
             foreach (string port in ports)
             {
@@ -77,7 +77,8 @@ namespace genericSerial
                 richTextBox1.Text += "\nOpened";
                 string text = textBox1.Text;
                 serialPort1.WriteLine(text);
-                while(i<10){
+                while(i<10)
+                {
                     serialPort1.DataReceived += new SerialDataReceivedEventHandler(serialPort1_DataReceived);
                     lines+=serialPort1.ReadExisting()+"\n";
                     i++;
@@ -97,7 +98,7 @@ namespace genericSerial
             richTextBox1.Text+="\n"+received.ToString();
             richTextBox1.Refresh();
             // send back an acknowledgement
-            SendString("Agent 007 acknowledges message: " + received);
+            SendString("$0800EC,CR");
         }
         static string ReadString()
         {
