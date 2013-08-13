@@ -14,9 +14,13 @@ using InTheHand;
 using InTheHand.Net.Bluetooth;
 using InTheHand.Net.Ports;
 using InTheHand.Net.Sockets;
+using genericSerial;
 
+//J2KN
+//"{00001101-0000-1000-8000-00805f9b34fb}"
 
-
+//My Phone
+//
 namespace BTooth_tutorial
 {
     public partial class BTooth : Form
@@ -39,6 +43,7 @@ namespace BTooth_tutorial
         private void bGo_Click(object sender, EventArgs e)
         {
             tbOutput.Clear();
+            listBox1.Enabled = true;
             if (serverStarted)
             {
                 updateUI("Server already started");
@@ -101,7 +106,7 @@ namespace BTooth_tutorial
                     //handle server connection
                     byte[] received = new byte[1024];
                     mStream.Read(received, 0, received.Length);
-                    updateUI("Received " + Encoding.ASCII.GetString(received));
+                    updateUI("Received " + Encoding.ASCII.GetString(received)+System.Environment.NewLine);
                     byte[] sent = Encoding.ASCII.GetBytes("Hello World");
                     mStream.Write(sent, 0, sent.Length);
                 } catch(Exception ex){
@@ -132,9 +137,9 @@ namespace BTooth_tutorial
         }
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
-            
             deviceInfo = devices.ElementAt(listBox1.SelectedIndex);
-
+            tbOutput.Clear();
+            listBox1.Enabled = false;
             updateUI(deviceInfo.DeviceName + " was selected, attempting connect. "+System.Environment.NewLine+"Address = "+ deviceInfo.DeviceAddress);
             if (pairDevice())
             {
@@ -157,7 +162,7 @@ namespace BTooth_tutorial
             //if (result.IsCompleted)
             try
             {
-                BluetoothClient client = (BluetoothClient)result.AsyncState;
+                client = (BluetoothClient)result.AsyncState;
                 client.EndConnect(result);
 
                 Stream stream = client.GetStream();
@@ -189,7 +194,8 @@ namespace BTooth_tutorial
             {
                 ready=true;
                 tbText.Clear();
-                Stream mStream = client.GetStream();
+                
+                Stream mStream =client.GetStream();
                 mStream.ReadTimeout = 4000;
                 try
                 {
@@ -198,7 +204,7 @@ namespace BTooth_tutorial
                         //handle server connection
                         message = Encoding.ASCII.GetBytes(tbText.Text);
                         mStream.Write(message, 0, message.Length);
-                        byte[] received = new byte[4096];
+                        byte[] received = new byte[1024];
                         mStream.Read(received, 0, received.Length);
                         updateUI("Received " + Encoding.ASCII.GetString(received));
                     }
@@ -209,6 +215,13 @@ namespace BTooth_tutorial
                     bGo.Enabled=true;
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SerialSearch sSearch= new SerialSearch();
+            sSearch.ShowDialog();
+            this.Close();
         }
     }
 }

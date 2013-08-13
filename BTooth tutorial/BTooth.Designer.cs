@@ -35,6 +35,7 @@
             this.rbServer = new System.Windows.Forms.RadioButton();
             this.rbClient = new System.Windows.Forms.RadioButton();
             this.bGo = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,11 +50,12 @@
             // 
             // tbText
             // 
-            this.tbText.Location = new System.Drawing.Point(12, 366);
+            this.tbText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbText.Location = new System.Drawing.Point(12, 259);
             this.tbText.Name = "tbText";
             this.tbText.Size = new System.Drawing.Size(579, 20);
             this.tbText.TabIndex = 1;
-            this.tbText.Text = "$0800EC,CR";
+            this.tbText.Text = "$12013039054002E2,CR";
             this.tbText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbText_KeyPress);
             // 
             // listBox1
@@ -100,7 +102,8 @@
             // 
             // bGo
             // 
-            this.bGo.Location = new System.Drawing.Point(597, 366);
+            this.bGo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.bGo.Location = new System.Drawing.Point(597, 259);
             this.bGo.Name = "bGo";
             this.bGo.Size = new System.Drawing.Size(75, 23);
             this.bGo.TabIndex = 4;
@@ -108,11 +111,22 @@
             this.bGo.UseVisualStyleBackColor = true;
             this.bGo.Click += new System.EventHandler(this.bGo_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(438, 2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(234, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Open Port Scan";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // BTooth
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 400);
+            this.ClientSize = new System.Drawing.Size(684, 293);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.bGo);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.listBox1);
@@ -136,6 +150,7 @@
         private System.Windows.Forms.RadioButton rbServer;
         private System.Windows.Forms.RadioButton rbClient;
         private System.Windows.Forms.Button bGo;
+        private System.Windows.Forms.Button button1;
     }
 }
 
