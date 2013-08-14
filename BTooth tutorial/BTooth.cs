@@ -107,7 +107,7 @@ namespace BTooth_tutorial
                     //handle server connection
                     byte[] received = new byte[1024];
                     mStream.Read(received, 0, received.Length);
-                    updateUI("Received " + Encoding.ASCII.GetString(received)+"\n ");
+                    updateUI("Received: " + Encoding.ASCII.GetString(received));
                     byte[] sent = Encoding.ASCII.GetBytes("Hello World");
                     mStream.Write(sent, 0, sent.Length);
                 } catch(Exception ex){
@@ -167,7 +167,39 @@ namespace BTooth_tutorial
                 client.EndConnect(result);
 
                 stream = client.GetStream();
+                stream.ReadTimeout = 1000;
                 updateUI("CONNECTED!!!");
+                string sMessage="";
+                int y = 0;
+                while (true)
+                {
+                    while (!ready)
+                    {
+                        message = Encoding.ASCII.GetBytes(tbText.Text);
+                        for (int i=0;i<message.Length;i++)
+                             sMessage += String.Format("{0:X2}",message[i]);
+                        MessageBox.Show(sMessage);
+                        stream.Write(message, 0, message.Length);
+                        byte[] received = new byte[1024];
+                        int bytesToRead = received.Length;
+                        
+
+                        while (bytesToRead > 0)
+                        {
+                            //Read may return anything from 0 to received.length.
+                            int n = stream.Read(received, y, bytesToRead);
+
+                            // The end of the file is reached. 
+                            if (n == 0)
+                                break;
+
+                            bytesToRead -= n;
+                            y += n;
+                        }
+                        stream.Close();
+                        updateUI("Received: " + Encoding.ASCII.GetString(received));
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -195,7 +227,6 @@ namespace BTooth_tutorial
                 ready=true;
                 tbText.Clear();
  
-                
                 if (mStream == null)
                 {
                     xStream = stream;
@@ -210,26 +241,7 @@ namespace BTooth_tutorial
                     //while (true)
                     //{                    
                         //handle server connection
-                        message = Encoding.ASCII.GetBytes(tbText.Text);
-                        xStream.Write(message, 0, message.Length);
-                        byte[] received = new byte[1024];
-                        int bytesToRead = received.Length; 
-                        int i = 0;
-
-                        while (bytesToRead > 0)
-                        {
-                            // Read may return anything from 0 to received.length.
-                            int n = xStream.Read(received, i, bytesToRead);
-
-                            // The end of the file is reached. 
-                            if (n == 0)
-                                break;
-
-                            bytesToRead -= n;
-                            i++;
-                        }
-                        xStream.Close();
-                        updateUI("Received: " + Encoding.ASCII.GetString(received));
+                       
                     //}
                 }
                 catch (Exception ex)
