@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2012 for Windows Desktop
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTooth tutorial", "BTooth tutorial\BTooth tutorial.csproj", "{7AD21ED0-CE95-4F43-97A6-ECF82394A324}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wireless Test", "Wireless Test\Wireless Test.csproj", "{B07DA9D6-4892-4C1A-B8BF-8A3859ACFB38}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{7AD21ED0-CE95-4F43-97A6-ECF82394A324}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AD21ED0-CE95-4F43-97A6-ECF82394A324}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AD21ED0-CE95-4F43-97A6-ECF82394A324}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B07DA9D6-4892-4C1A-B8BF-8A3859ACFB38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B07DA9D6-4892-4C1A-B8BF-8A3859ACFB38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B07DA9D6-4892-4C1A-B8BF-8A3859ACFB38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B07DA9D6-4892-4C1A-B8BF-8A3859ACFB38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

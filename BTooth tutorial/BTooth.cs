@@ -113,7 +113,6 @@ namespace BTooth_tutorial
                 } catch(Exception ex){
                     updateUI("Client has disconnected!!!~!!!"+System.Environment.NewLine + ex);
                 }
-
             }
         }
 
