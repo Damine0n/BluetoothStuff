@@ -21,6 +21,7 @@ namespace Wireless_Test
         public WirelessTest()
         {
             InitializeComponent();
+            timer1.Start();
         }
 
         private void updateUI(string message)
@@ -38,7 +39,7 @@ namespace Wireless_Test
             Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             string sendString = "$0802", receiveString = "";
             //$0F10HHIIIII,CHKS,CR
-            processProtocol(sendString, true);
+            processProtocol(sendString);
             //try
             //{             
             //    if (!clientSocket.Connected)
@@ -90,7 +91,7 @@ namespace Wireless_Test
             {
                 try
                 {
-                    processProtocol(tbInput.Text,true);
+                    processProtocol(tbInput.Text);
                     tbInput.Clear();
                 }
                 catch (Exception ex)
@@ -101,15 +102,13 @@ namespace Wireless_Test
             }
         }
 
-        private void processProtocol(string p,bool status)
+        private void processProtocol(string p)
         {
             //$1085;0300D2;A1
             Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             byte[] sendPacket = new byte[256];
             if (!clientSocket.Connected)
                     clientSocket.Connect(IPAddress.Parse("192.168.55.1"), 4000);
-            if (status.Equals(true))
-            {
                 sendPacket = Encoding.UTF8.GetBytes(p + CalculateChecksum(p) + vbCr);
                 int i = clientSocket.Send(sendPacket);
                 updateUI(String.Format("Sent {0} bytes", i));
@@ -119,31 +118,21 @@ namespace Wireless_Test
                 i = clientSocket.Receive(receivedBytes);
                 updateUI(String.Format("Received {0} bytes", i));
                 string []arr = Encoding.ASCII.GetString(receivedBytes).Split(';');
-                updateUI("Received: " + String.Format("{0:P1}",Convert.ToInt32(arr[1],16)));
+                updateUI("Received: " + String.Format("{0:000}",Convert.ToInt32(arr[1],16)));
                 for (int j = 2; j < arr.Length-4;j++ )
                 {
-                    updateUI(Convert.ToInt32(arr[j].Substring(2,4),16).ToString().Insert(1,"."));
+                    double value = Convert.ToInt32(arr[j].Substring(2, arr[j].Length - 2), 16);
+                    updateUI(arr[j] + "-" + (value/10).ToString());
                 }
                 updateUI("Received: " + Encoding.ASCII.GetString(receivedBytes));
-            }
-            else 
-            {
-                sendPacket = Encoding.UTF8.GetBytes(p + CalculateChecksum(p) + vbCr);
-                clientSocket.Send(sendPacket);
-                clientSocket.ReceiveTimeout = 4000;
 
-                int i = clientSocket.Receive(receivedBytes);
-                updateUI(String.Format("Received {0} bytes", i));
-
-                updateUI("Received: " + Encoding.ASCII.GetString(receivedBytes));
-            }
             clientSocket.Disconnect(true);
             clientSocket.Close();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            processProtocol(tbInput.Text,stat);
+            processProtocol("$0802");
             stat = false;
         }
 
